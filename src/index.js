@@ -2,11 +2,11 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config()
 const mongoose = require("mongoose");
-const Products = require('./Products');
+const Products = require('../Products');
 require('dotenv').config()
 const bcrypt = require("bcrypt");
 const stripe = require("stripe")(process.env.KEY)
-const Users = require('./Users')
+const Users = require('../Users')
 
 const app = express();
 const port = process.env.PORT;
