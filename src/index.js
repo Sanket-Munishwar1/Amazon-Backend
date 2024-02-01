@@ -55,10 +55,7 @@ app.get("/products/get", async (req, res) => {
 });
   
 
-
-
 // API for SIGNUP
-
 
 
 app.post("/auth/signup", async (req, res) => {
@@ -69,7 +66,7 @@ app.post("/auth/signup", async (req, res) => {
     const encryptedPassword = await bcrypt.hash(password, 8);
 
     // Check if the user with the given email already exists
-    const userExist = await Users.findOne({ email });
+    const userExist = await Users.findOne({ email:email });
 
     if (userExist) {
       return res.status(400).json({ message: "The email is already in use!" });
@@ -82,14 +79,24 @@ app.post("/auth/signup", async (req, res) => {
       fullName,
     });
 
-    res.status(201).json({ message: "User created successfully", user: newUser });
+    res.status(201).send(newUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" } );
   }
 });
 
 
+//GET USERS
+app.get("/users/get", async(req, res) =>{
+  try {
+    const users = await Users.find()
+    res.status(201).json(users)
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err.message)
+  }
+} )
 // API for LOGIN
 
 
